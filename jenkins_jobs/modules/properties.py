@@ -1217,6 +1217,20 @@ def disable_resume(registry, xml_parent, data):
                    'DisableResumeJobProperty')
 
 
+def disk_usage(registry, xml_parent, data):
+    """yaml: disk-usage
+
+    Configures Jenkins to monitor the disk usage of jobs.
+    Requires the Jenkins :jenkins-wiki:`Disk Usage Plugin <Disk+Usage+Plugin>`.
+
+    Example::
+
+      properties:
+        - disk-usage
+    """
+    XML.SubElement(xml_parent, 'hudson.plugins.disk__usage.DiskUsageProperty')
+
+
 class Properties(jenkins_jobs.modules.base.Base):
     sequence = 20
 
