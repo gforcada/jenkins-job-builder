@@ -330,12 +330,13 @@ class JenkinsManager(object):
         for result in results:
             if isinstance(result, Exception):
                 raise result
-            else:
+            elif not self._jjb_config.builder['ignore_cache']:
                 # update in-memory cache
                 j_name, j_md5 = result
                 self.cache.set(j_name, j_md5)
-        # write cache to disk
-        self.cache.save()
+        if not self._jjb_config.builder['ignore_cache']:
+            # write cache to disk
+            self.cache.save()
         logging.debug("Updated %d jobs in %ss",
                       len(jobs),
                       time.time() - step)
